@@ -1,0 +1,19 @@
+## STRUCTURES
+
+	> SURFACE
+	
+		[]
+		[]
+		[]
+		
+	> UNDERGROUND
+		
+		[]
+		[]
+		[]
+		
+	> WATER
+	
+		[]
+		[]
+		[]

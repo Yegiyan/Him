@@ -1,0 +1,49 @@
+{
+	"altar_summoned": {
+		"category": "ambient",
+		"sounds": [
+			{
+				"name": "him:events/altar_summoned",
+				"stream": true
+			}
+		]
+	},
+	
+	"sighting": {
+		"category": "ambient",
+		"sounds": [
+			{
+				"name": "him:events/sighting",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting2",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting3",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting4",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting5",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting6",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting7",
+				"stream": true
+			},
+			{
+				"name": "him:events/sighting8",
+				"stream": true
+			}
+		]
+	}
+}
