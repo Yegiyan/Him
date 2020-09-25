@@ -9,6 +9,16 @@
 		]
 	},
 	
+	"altar_destroyed": {
+		"category": "ambient",
+		"sounds": [
+			{
+				"name": "him:events/altar_destroyed",
+				"stream": true
+			}
+		]
+	},
+	
 	"sighting": {
 		"category": "ambient",
 		"sounds": [
