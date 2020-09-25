@@ -7,4 +7,6 @@ runServer.launch
 /run/
 /assets/
 /.settings/
+.project
+.classpath
 
