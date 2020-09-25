@@ -1,2 +1,10 @@
 /.gradle/
 /build/
+runClient.launch
+runData.launch
+runServer.launch
+/bin/
+/run/
+/assets/
+/.settings/
+
