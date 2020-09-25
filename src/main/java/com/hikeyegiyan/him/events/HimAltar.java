@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Him.MODID, bus = Bus.FORGE)
 public class HimAltar
 {
-	public static boolean altarBuilt(BlockPos pos, World world)
+	public static boolean isAltarBuilt(BlockPos pos, World world)
 	{
 		int x = pos.getX();
 		int y = pos.getY();
@@ -61,19 +61,23 @@ public class HimAltar
 		PlayerEntity player = event.getPlayer();
 		Hand hand = event.getHand();
 		ItemStack itemStack = player.getHeldItem(hand);
-
-		if ((altarBuilt(pos, world)) && (itemStack.getItem() == Items.FLINT_AND_STEEL))
+		
+		if ((isAltarBuilt(pos, world)) && (itemStack.getItem() == Items.FLINT_AND_STEEL))
 		{
 			if (world instanceof ServerWorld)
 			{
 				String text1 = TextFormatting.YELLOW + "§k Herobrine ";
 				String text2 = TextFormatting.YELLOW + "joined the game.";
 				player.sendMessage(new StringTextComponent(text1 + text2));
-
+				
 				((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, pos.getX(), pos.getY(), pos.getZ(), false));
 				((ServerWorld) world).getWorldInfo().setClearWeatherTime(0);
+				((ServerWorld) world).getWorldInfo().setThundering(true);
 				((ServerWorld) world).getWorldInfo().setRaining(true);
+				((ServerWorld) world).getWorldInfo().setThunderTime(12000); // 20*(60*10)
 				((ServerWorld) world).getWorldInfo().setRainTime(12000); // 20*(60*10)
+				
+				
 				
 				world.playSound(null, new BlockPos(player), SoundInit.SUMMONED_SOUND.get(), SoundCategory.AMBIENT, 1.0f, 1.0f);
 			}
