@@ -1,12 +1,19 @@
-/.gradle/
-/build/
-runClient.launch
-runData.launch
-runServer.launch
+# eclipse
 /bin/
-/run/
-/assets/
 /.settings/
 .project
 .classpath
+runClient.launch
+runData.launch
+runServer.launch
+
+# gradle
+/.gradle/
+/build/
+
+# other
+/run/
+/assets/
+
+
 
