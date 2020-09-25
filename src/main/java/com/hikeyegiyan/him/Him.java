@@ -5,8 +5,9 @@ import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.hikeyegiyan.him.init.FeatureInit;
+import com.hikeyegiyan.him.init.ItemInit;
 import com.hikeyegiyan.him.init.SoundInit;
+import com.hikeyegiyan.him.init.StructureInit;
 
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
@@ -37,6 +38,7 @@ public class Him
         modEventBus.addListener(this::doClientStuff);
         
         SoundInit.SOUNDS.register(modEventBus);
+        ItemInit.ITEMS.register(modEventBus);
         
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -44,7 +46,7 @@ public class Him
 
     private void setup(final FMLCommonSetupEvent event)
     {
-    	FeatureInit.addToBiomes();
+    	StructureInit.addToBiomes();
     }
     
     // Registers the structures pieces themselves. If you don't do this part, Forge will complain to you in the Console.

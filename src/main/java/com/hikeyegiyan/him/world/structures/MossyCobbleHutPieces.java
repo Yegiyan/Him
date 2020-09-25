@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.google.common.collect.ImmutableMap;
 import com.hikeyegiyan.him.Him;
-import com.hikeyegiyan.him.init.FeatureInit;
+import com.hikeyegiyan.him.init.StructureInit;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
@@ -56,7 +56,7 @@ public class MossyCobbleHutPieces
 		public Piece(TemplateManager templateManagerIn, ResourceLocation resourceLocationIn, BlockPos pos,
 				Rotation rotationIn)
 		{
-			super(FeatureInit.MCHP, 0);
+			super(StructureInit.MCHP, 0);
 			this.resourceLocation = resourceLocationIn;
 			BlockPos blockpos = MossyCobbleHutPieces.OFFSET.get(resourceLocation);
 			this.templatePosition = pos.add(blockpos.getX(), blockpos.getY(), blockpos.getZ());
@@ -66,7 +66,7 @@ public class MossyCobbleHutPieces
 
 		public Piece(TemplateManager templateManagerIn, CompoundNBT tagCompound)
 		{
-			super(FeatureInit.MCHP, tagCompound);
+			super(StructureInit.MCHP, tagCompound);
 			this.resourceLocation = new ResourceLocation(tagCompound.getString("Template"));
 			this.rotation = Rotation.valueOf(tagCompound.getString("Rot"));
 			this.setupPiece(templateManagerIn);

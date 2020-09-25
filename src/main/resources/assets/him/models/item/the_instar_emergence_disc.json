@@ -1,0 +1,6 @@
+{
+	"parent": "items/generated",
+	"textures": {
+		"layer0": "him:items/the_instar_emergence_disc"
+	}
+}

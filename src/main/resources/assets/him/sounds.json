@@ -55,5 +55,25 @@
 				"stream": true
 			}
 		]
+	},
+	
+	"the_instar_emergence_disc": {
+		"category": "item",
+		"sounds": [
+			{
+				"name": "him:discs/the_instar_emergence_disc",
+				"stream": true
+			}
+		]
+	},
+	
+	"interconnectedness_disc": {
+		"category": "item",
+		"sounds": [
+			{
+				"name": "him:discs/interconnectedness_disc",
+				"stream": true
+			}
+		]
 	}
 }

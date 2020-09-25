@@ -6,7 +6,7 @@ import java.util.function.Function;
 import org.apache.logging.log4j.Level;
 
 import com.hikeyegiyan.him.Him;
-import com.hikeyegiyan.him.init.FeatureInit;
+import com.hikeyegiyan.him.init.StructureInit;
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.util.Rotation;
@@ -100,7 +100,7 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 	{
 		for (Biome biome : ForgeRegistries.BIOMES)
 		{	
-			biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, FeatureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).
+			biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, StructureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).
 					withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			
 			// Biome conditions for your structure to spawn
@@ -121,7 +121,7 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 				biome == Biomes.BADLANDS)
 			{			
 				if (!Him.HerobrineSpawned)
-					biome.addStructure(FeatureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+					biome.addStructure(StructureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 			}
 		}
 	}
