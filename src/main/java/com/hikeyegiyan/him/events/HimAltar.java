@@ -2,9 +2,9 @@ package com.hikeyegiyan.him.events;
 
 import com.hikeyegiyan.him.Him;
 import com.hikeyegiyan.him.init.SoundInit;
+import com.hikeyegiyan.him.util.HimData;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -36,12 +36,15 @@ public class HimAltar
 		Hand hand = event.getHand();
 		ItemStack itemStack = player.getHeldItem(hand);
 		
+		Him.LOGGER.info("Is Herobrine Spawned: " + HimData.get(world).getAltarActive());
+		
 		// Summon Him
-		if ((isAltarBuilt(pos, world)) && (itemStack.getItem() == Items.FLINT_AND_STEEL))
+		if ((isAltarBuilt(pos, world)) && !HimData.get(world).getAltarActive() && (itemStack.getItem() == Items.FLINT_AND_STEEL))
 		{
 			if (world instanceof ServerWorld)
 			{
-				if (player instanceof LivingEntity)player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 60, 0));
+				player.addPotionEffect(new EffectInstance(Effects.WITHER, 60, 0));
+				player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 120, 0));
 				
 				String text1 = TextFormatting.YELLOW + "§k Herobrine ";
 				String text2 = TextFormatting.YELLOW + "joined the game.";
@@ -55,14 +58,17 @@ public class HimAltar
 				((ServerWorld) world).getWorldInfo().setRainTime(12000);
 				
 				world.playSound(null, new BlockPos(player), SoundInit.SUMMONED_SOUND.get(), SoundCategory.AMBIENT, 1.0f, 1.0f);
+				HimData.get(world).setAltarActive(true);
 			}
 		}
 		
 		// Banish Him
-		if ((isAltarBuilt(pos, world)) && (itemStack.getItem() == Items.NETHER_STAR))
+		if ((isAltarBuilt(pos, world)) && HimData.get(world).getAltarActive() && (itemStack.getItem() == Items.NETHER_STAR))
 		{
 			if (world instanceof ServerWorld)
 			{	
+				player.addPotionEffect(new EffectInstance(Effects.LUCK, 24000, 0));
+				
 				String text1 = TextFormatting.YELLOW + "§k Herobrine ";
 				String text2 = TextFormatting.YELLOW + "was banished from the game.";
 				player.sendMessage(new StringTextComponent(text1 + text2));
@@ -73,6 +79,7 @@ public class HimAltar
 				((ServerWorld) world).getWorldInfo().setDayTime(1000);
 				
 				world.playSound(null, new BlockPos(player), SoundInit.BANISHED_SOUND.get(), SoundCategory.AMBIENT, 0.8f, 1.0f);
+				HimData.get(world).setAltarActive(false);
 			}
 		}
 	}
@@ -83,7 +90,7 @@ public class HimAltar
 		int y = pos.getY();
 		int z = pos.getZ();
 
-		// Block above the netherrack is the origin point
+		// Netherrack is the origin point
 		if (world.getBlockState(new BlockPos(x, y, z)) == Blocks.NETHERRACK.getDefaultState()
 				&& world.getBlockState(new BlockPos(x, y - 1, z)) == Blocks.MOSSY_COBBLESTONE.getDefaultState()
 				// Gold Block Sides

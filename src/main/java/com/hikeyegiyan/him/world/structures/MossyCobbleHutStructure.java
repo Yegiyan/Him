@@ -120,8 +120,10 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 				biome == Biomes.DESERT ||
 				biome == Biomes.BADLANDS)
 			{			
-				if (!Him.HerobrineSpawned)
+				//if (HimData.isAltarActive)
+				//{
 					biome.addStructure(StructureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+				//}
 			}
 		}
 	}
