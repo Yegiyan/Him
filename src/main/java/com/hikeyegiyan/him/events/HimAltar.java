@@ -36,15 +36,15 @@ public class HimAltar
 		Hand hand = event.getHand();
 		ItemStack itemStack = player.getHeldItem(hand);
 		
-		Him.LOGGER.info("Is Herobrine Spawned: " + HimData.get(world).getAltarActive());
+		//Him.LOGGER.info("Is Herobrine Spawned: " + HimData.get(world).getAltarActive());
 		
 		// Summon Him
 		if ((isAltarBuilt(pos, world)) && !HimData.get(world).getAltarActive() && (itemStack.getItem() == Items.FLINT_AND_STEEL))
 		{
 			if (world instanceof ServerWorld)
 			{
-				player.addPotionEffect(new EffectInstance(Effects.WITHER, 60, 0));
-				player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 120, 0));
+				player.addPotionEffect(new EffectInstance(Effects.WITHER, 100, 0));
+				player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 20, 0));
 				
 				String text1 = TextFormatting.YELLOW + "§k Herobrine ";
 				String text2 = TextFormatting.YELLOW + "joined the game.";
@@ -67,7 +67,7 @@ public class HimAltar
 		{
 			if (world instanceof ServerWorld)
 			{	
-				player.addPotionEffect(new EffectInstance(Effects.LUCK, 24000, 0));
+				player.addPotionEffect(new EffectInstance(Effects.LUCK, 12000, 0));
 				
 				String text1 = TextFormatting.YELLOW + "§k Herobrine ";
 				String text2 = TextFormatting.YELLOW + "was banished from the game.";

@@ -11,7 +11,7 @@ import net.minecraft.world.storage.WorldSavedData;
 public class HimData extends WorldSavedData
 {
 	public static final String DATA_ID = "him";
-	static HimData clientSide = new HimData();
+	static HimData clientData = new HimData();
 	public boolean isAltarActive = false;
 
 	public HimData()
@@ -36,7 +36,7 @@ public class HimData extends WorldSavedData
 	{
 		isAltarActive = bool;
 	}
-	
+
 	public boolean getAltarActive()
 	{
 		markDirty();
@@ -49,8 +49,7 @@ public class HimData extends WorldSavedData
 		{
 			return Objects.requireNonNull(world.getServer()).getWorld(DimensionType.OVERWORLD).getSavedData()
 					.getOrCreate(HimData::new, DATA_ID);
-		}
-		else
-			return clientSide;
+		} else
+			return clientData;
 	}
 }

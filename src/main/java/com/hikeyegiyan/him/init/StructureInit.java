@@ -10,11 +10,11 @@ import net.minecraft.world.gen.feature.structure.Structure;
 public class StructureInit
 {
 	// Static instance of our structure so we can reference it and add it to biomes easily.
-		public static Structure<NoFeatureConfig> MOSSY_COBBLE_HUT = new MossyCobbleHutStructure(NoFeatureConfig::deserialize);
-		public static IStructurePieceType MCHP = MossyCobbleHutPieces.Piece::new;
+	public static Structure<NoFeatureConfig> MOSSY_COBBLE_HUT = new MossyCobbleHutStructure(NoFeatureConfig::deserialize);
+	public static IStructurePieceType MCHP = MossyCobbleHutPieces.Piece::new;
 		
-		public static void addToBiomes()
-		{
-			MossyCobbleHutStructure.determineBiome();
-		}
+	public static void addToBiomes()
+	{
+		MossyCobbleHutStructure.determineBiome();
+	}
 }

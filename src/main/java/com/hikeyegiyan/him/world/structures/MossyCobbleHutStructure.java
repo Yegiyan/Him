@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Level;
 
 import com.hikeyegiyan.him.Him;
 import com.hikeyegiyan.him.init.StructureInit;
+import com.hikeyegiyan.him.util.HimData;
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.util.Rotation;
@@ -70,7 +71,7 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 	}
 
 	
-	// This seems to be unused but cannot be removed. Just return 0 is all you need to do.
+	// Unused but cannot be removed, just return 0.
 	@Override
 	public int getSize()
 	{
@@ -103,7 +104,7 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 			biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, StructureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).
 					withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			
-			// Biome conditions for your structure to spawn
+			// Biome conditions for a structure to spawn
 			// You can even filter by temperature, scale, etc.
 			if (biome == Biomes.SNOWY_TUNDRA ||
 				biome == Biomes.SNOWY_TAIGA ||
@@ -120,10 +121,11 @@ public class MossyCobbleHutStructure extends Structure<NoFeatureConfig>
 				biome == Biomes.DESERT ||
 				biome == Biomes.BADLANDS)
 			{			
-				//if (HimData.isAltarActive)
-				//{
+				if (HimData.get(null).getAltarActive())
+				{
+					Him.LOGGER.info("determineBiome() Called!");
 					biome.addStructure(StructureInit.MOSSY_COBBLE_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-				//}
+				}
 			}
 		}
 	}
