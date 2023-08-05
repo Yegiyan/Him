@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "him",
+	"version": "${version}",
+	"name": "Him",
+	"description": "From the Far Lands of Alpha v1.0.16_02, he's returned.",
+	"authors": [
+		"FLy1nRabBit"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/him",
+		"sources": "https://github.com/Yegiyan/Him"
+	},
+	"license": "CC BY 4.0",
+	"icon": "assets/him/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.him.Him"
+		],
+		"client": [
+			"com.him.HimClient"
+		]
+	},
+	"mixins": [
+		"him.mixins.json",
+		{
+			"config": "him.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
