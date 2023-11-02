@@ -20,11 +20,11 @@ public class HimConfig
     
     // 2 - 15 minutes
     private int minSecondsHaunt = 120;
-    private int maxSecondsHaunt = 900;
+    private int maxSecondsHaunt = 720;
     
     // 3 - 15 minutes
     private int minSecondsGrief = 180;
-    private int maxSecondsGrief = 900;
+    private int maxSecondsGrief = 720;
     
     // haunt bools
     public boolean enablePhantomAudio = true;
