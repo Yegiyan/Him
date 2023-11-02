@@ -14,16 +14,16 @@ public class HimConfig
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = Paths.get("config", "him.json");
     
-    // 2 - 10 minutes
-    private int minSecondsStalk = 120;
+    // 1 - 10 minutes
+    private int minSecondsStalk = 60;
     private int maxSecondsStalk = 600;
     
-    // 2 - 15 minutes
-    private int minSecondsHaunt = 120;
+    // 1 - 12 minutes
+    private int minSecondsHaunt = 60;
     private int maxSecondsHaunt = 720;
     
-    // 3 - 15 minutes
-    private int minSecondsGrief = 180;
+    // 1 - 12 minutes
+    private int minSecondsGrief = 60;
     private int maxSecondsGrief = 720;
     
     // haunt bools
