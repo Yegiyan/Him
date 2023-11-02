@@ -84,7 +84,7 @@ public class Him implements ModInitializer
         updateHim();
 	}
 	
-	private void updateHim() 
+	private void updateHim()
 	{
 	    Random rand = new Random();
 

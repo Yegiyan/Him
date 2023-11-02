@@ -26,7 +26,7 @@ public class HimStalk
             
             // distance in blocks
             double minDistance = 32D;
-            double maxDistance = 74D;
+            double maxDistance = 64D;
             double spawnDistance = ThreadLocalRandom.current().nextDouble(minDistance, maxDistance);
             BlockPos spawnPos = getSpawnPosition(player, spawnDistance);
             
