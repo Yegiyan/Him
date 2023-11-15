@@ -36,6 +36,8 @@ Make sure your **ambient** audio level is high!
 
 I think I've added everything I wanted to at the moment, if you have any suggestions or if you encounter any issues, please let me know. I haven't been able to do very extensive bug testing. I'll try to update the mod as my schedule permits. I may port to Forge in the future but no promises for now.
 
+Visit the Modrinth page for info: https://modrinth.com/mod/him
+
 <a href="https://modrinth.com/mod/fabric-api" target="_blank">
   <img src="https://i.imgur.com/p4FiqQD.png" alt="Fabric API Banner" width="180"/>
 </a>
