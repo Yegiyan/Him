@@ -181,7 +181,7 @@ public class HimAltar
                 ServerWorld serverWorld = (ServerWorld) world;
                 
                 // CHECK IF ALTAR IS BUILT & INACTIVE - SUMMON
-                if (!isAltarActive(serverWorld) && !Him.isHerobrineSeed && player.getStackInHand(hand).getItem() == Items.FLINT_AND_STEEL && serverWorld.getBlockState(pos).getBlock() == Blocks.NETHERRACK && isAltarBuilt(pos, serverWorld)) 
+                if (!isAltarActive(serverWorld) && !Him.isHerobrineSeed && (player.getStackInHand(hand).getItem() == Items.FLINT_AND_STEEL || player.getStackInHand(hand).getItem() == Items.FIRE_CHARGE) && serverWorld.getBlockState(pos).getBlock() == Blocks.NETHERRACK && isAltarBuilt(pos, serverWorld))
                 {
                     Him.LOGGER.info("You have no idea what you've done...");
                     summonHerobrine(pos, serverWorld, player);
