@@ -19,14 +19,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CandleBlock;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.GlassBlock;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -213,7 +214,7 @@ public class HimHaunt
 
 	                    if (block instanceof TorchBlock)
 	                        torchPositions.add(blockPos);
-	                    else if (block instanceof GlassBlock) 
+	                    else if (state.isIn(ConventionalBlockTags.GLASS_BLOCKS) || state.isIn(ConventionalBlockTags.GLASS_PANES))
 	                        glassPositions.add(blockPos);
 	                    else if (block instanceof LadderBlock) 
 	                    	ladderPositions.add(blockPos);
