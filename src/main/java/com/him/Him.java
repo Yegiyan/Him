@@ -22,30 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.him.entities.HerobrineEntity;
-import com.him.events.HimAltar;
-import com.him.events.HimGrief;
-import com.him.events.HimHaunt;
-import com.him.events.HimStalk;
-
-class MutableInt 
-{
-    private int value;
-
-    public MutableInt(int value) 
-    {
-        this.value = value;
-    }
-
-    public void setValue(int value) 
-    {
-        this.value = value;
-    }
-
-    public int getValue() 
-    {
-        return value;
-    }
-}
+import com.him.events.Altar;
+import com.him.events.Grief;
+import com.him.events.Haunt;
+import com.him.events.Stalk;
 
 public class Him implements ModInitializer
 {
@@ -69,12 +49,12 @@ public class Him implements ModInitializer
 	@Override
 	public void onInitialize() 
 	{
-		HimAltar.registerEventHandlers();
+		Altar.registerEventHandlers();
 		
 		FabricDefaultAttributeRegistry.register(HEROBRINE, HerobrineEntity.createMobAttributes());
 		SpawnRestriction.register(Him.HEROBRINE, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HerobrineEntity::canMobSpawn);
 		
-		// check if the world seed is... cursed
+		// check if the world seed is cursed
         ServerLifecycleEvents.SERVER_STARTED.register(server -> 
         { 
         	long seed = server.getOverworld().getSeed();
@@ -106,25 +86,25 @@ public class Him implements ModInitializer
 	    AtomicInteger tickCounterGrief = new AtomicInteger();
 	    
 	    AtomicInteger printCounter = new AtomicInteger();
-	    int printInterval = 5;
+	    int debugPrintInterval = 60;
 
 	    ServerTickEvents.END_WORLD_TICK.register(world -> 
 	    {
-	        HimHaunt.isPlayerSleeping(world);
+	        Haunt.isPlayerSleeping(world);
 
-	        if (isHerobrineSeed && !HimAltar.hasHerobrineGreeted(world))
+	        if (isHerobrineSeed && !Altar.hasHerobrineGreeted(world))
 	        {
-	        	HimAltar.setHerobrineGreeting(world, true);
-	        	HimAltar.curseWorld(world);
+	        	Altar.setHerobrineGreeting(world, true);
+	        	Altar.curseWorld(world);
 	        	
 	        	secondsStalk.setValue(15);
     		    secondsHaunt.setValue(30);
     		    secondsGrief.setValue(45);
 	        }
 	        
-	        if (!world.getPlayers().isEmpty() && HimAltar.isAltarActive(world)) 
+	        if (!world.getPlayers().isEmpty() && Altar.isAltarActive(world)) 
             {
-	        	if (printCounter.incrementAndGet() >= 20 * printInterval) 
+	        	if (printCounter.incrementAndGet() >= 20 * debugPrintInterval) 
 		        {
 	        		LOGGER.info("--------------");
 		        	LOGGER.info("Time until next stalking: " + ((int)((secondsStalk.getValue() * 20 - tickCounterStalk.get()) / 20.0 + 0.5)) + " seconds");
@@ -137,21 +117,21 @@ public class Him implements ModInitializer
 		        {
 		            tickCounterStalk.set(0);
 		            secondsStalk.setValue(rand.nextInt((maxSecondsStalk - minSecondsStalk) + 1) + minSecondsStalk);
-		            HimStalk.stalk(world);
+		            Stalk.stalk(world);
 		        }
 
 		        if(tickCounterHaunt.incrementAndGet() >= 20 * secondsHaunt.getValue()) 
 		        {
 		            tickCounterHaunt.set(0);
 		            secondsHaunt.setValue(rand.nextInt((maxSecondsHaunt - minSecondsHaunt) + 1) + minSecondsHaunt);
-		            HimHaunt.haunt(world);
+		            Haunt.haunt(world);
 		        }
 
 		        if(tickCounterGrief.incrementAndGet() >= 20 * secondsGrief.getValue()) 
 		        {
 		            tickCounterGrief.set(0);
 		            secondsGrief.setValue(rand.nextInt((maxSecondsGrief - minSecondsGrief) + 1) + minSecondsGrief);
-		            HimGrief.grief(world);
+		            Grief.grief(world);
 		        }
             }
 	    });
@@ -162,4 +142,21 @@ public class Him implements ModInitializer
 		Identifier id = new Identifier(MOD_ID, name);
 		return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
 	}
+}
+
+class MutableInt 
+{
+    private int value;
+
+    public MutableInt(int value) {
+        this.value = value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }

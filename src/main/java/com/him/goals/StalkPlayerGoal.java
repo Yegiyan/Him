@@ -54,21 +54,20 @@ public class StalkPlayerGoal extends Goal
         this.targetPlayer = null;
         this.herobrine.getNavigation().stop();
      
-        // If the current world is a server world, create particles
         if (this.herobrine.getWorld() instanceof ServerWorld) 
         {
             ((ServerWorld)this.herobrine.getWorld()).spawnParticles(ParticleTypes.END_ROD, 
                 this.herobrine.getX(), 
                 this.herobrine.getY(), 
                 this.herobrine.getZ(), 
-                30,     // Number of particles
-                0.25D,  // Spawn width
-                0.25D,  // Spawn height
-                0.25D,  // Spawn depth
-                0.02D); // Speed of particles
+                30,     // number of particles
+                0.25D,  // spawn width
+                0.25D,  // spawn height
+                0.25D,  // spawn depth
+                0.02D); // speed of particles
         }
         
-        // Remove Herobrine entity
+        // remove herobrine entity
         this.herobrine.remove(RemovalReason.DISCARDED);
     }
     

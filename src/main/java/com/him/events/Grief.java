@@ -25,7 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 
-public class HimGrief
+public class Grief
 {
 	public static void grief(ServerWorld world) 
 	{
@@ -131,7 +131,7 @@ public class HimGrief
 	            }
 	        }
 
-	     // chance to place redstone torch on the walls of the shaft (8% chance)
+	        // chance to place redstone torch on the walls of the shaft (8% chance)
 	        if (new Random().nextInt(100) < 8)
 	        {
 	            BlockPos torchPos = shaftPos.add(1, 0, 0); // replace with the direction you want the torch to face
@@ -247,7 +247,7 @@ public class HimGrief
 	        if (!world.getBlockState(torchPos).isAir())
 	            continue;
 
-	        Direction[] directions = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}; // The directions that a wall torch can face.
+	        Direction[] directions = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}; // the directions that a wall torch can face
 
 	        // try to place a wall torch if possible
 	        for(Direction direction : directions)
@@ -264,7 +264,7 @@ public class HimGrief
 	            }
 	        }
 
-	        // if it wasn't possible to place a wall torch, try to place a normal redstone torch.
+	        // if it wasn't possible to place a wall torch, try to place a normal redstone torch
 	        if (!torchPlaced)
 	        {
 	            BlockPos blockBelow = torchPos.down(); 

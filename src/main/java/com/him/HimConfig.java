@@ -14,17 +14,17 @@ public class HimConfig
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = Paths.get("config", "him.json");
     
-    // 1 - 10 minutes
+    // 1 - 8 minutes
     private int minSecondsStalk = 60;
-    private int maxSecondsStalk = 600;
+    private int maxSecondsStalk = 480;
     
-    // 1 - 12 minutes
+    // 1 - 10 minutes
     private int minSecondsHaunt = 60;
-    private int maxSecondsHaunt = 720;
+    private int maxSecondsHaunt = 600;
     
-    // 1 - 12 minutes
+    // 1 - 10 minutes
     private int minSecondsGrief = 60;
-    private int maxSecondsGrief = 720;
+    private int maxSecondsGrief = 600;
     
     // haunt bools
     public boolean enablePhantomAudio = true;
@@ -46,38 +46,32 @@ public class HimConfig
     public static HimConfig loadConfig() 
     {
         HimConfig config;
-
         try 
         {
             if (Files.exists(CONFIG_PATH)) 
             {
-                try (Reader reader = Files.newBufferedReader(CONFIG_PATH)) 
+                try (Reader reader = Files.newBufferedReader(CONFIG_PATH))
                 {
                     config = GSON.fromJson(reader, HimConfig.class);
                 }
-            } 
-            
-            else 
+            }
+            else
             {
                 config = new HimConfig();
                 Files.createDirectories(CONFIG_PATH.getParent());
-
-                try (Writer writer = Files.newBufferedWriter(CONFIG_PATH)) 
+                try (Writer writer = Files.newBufferedWriter(CONFIG_PATH))
                 {
                     GSON.toJson(config, writer);
                 }
             }
         } 
-        
-        catch (IOException e) 
+        catch (IOException e)
         {
             throw new RuntimeException("Failed to load or create config", e);
         }
-
         return config;
     }
 
-    // Getters
     public int getMinSecondsStalk() { return minSecondsStalk; }
     public int getMaxSecondsStalk() { return maxSecondsStalk; }
     public int getMinSecondsHaunt() { return minSecondsHaunt; }

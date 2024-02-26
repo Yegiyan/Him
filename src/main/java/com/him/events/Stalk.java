@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 
-public class HimStalk
+public class Stalk
 {	
 	public static void stalk(ServerWorld world)
 	{
@@ -25,7 +25,7 @@ public class HimStalk
             PlayerEntity player = world.getPlayers().get(playerIndex);
             
             // distance in blocks
-            double minDistance = 32D;
+            double minDistance = 42D;
             double maxDistance = 64D;
             double spawnDistance = ThreadLocalRandom.current().nextDouble(minDistance, maxDistance);
             BlockPos spawnPos = getSpawnPosition(player, spawnDistance);
@@ -54,16 +54,16 @@ public class HimStalk
 	{
 	    for (int i = 0; i < 100; i++) 
 	    {
-	        // Get random angle between 0 and 2*pi
+	        // get random angle between 0 and 2*pi
 	        double angle = player.getRandom().nextDouble() * 2 * Math.PI;
 
-	        // Calculate spawn position
+	        // calculate spawn position
 	        double x = player.getX() + distance * Math.cos(angle);
 	        double z = player.getZ() + distance * Math.sin(angle);
 	        int y = player.getWorld().getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int)x, (int)z);
 	        BlockPos pos = new BlockPos((int)x, (int)y, (int)z);
 
-	        // If position is valid and is outside of the player's fov, return it
+	        // if position is valid and is outside of the player's fov, return it
 	        if (isValidSpawnPosition(player.getWorld(), pos) && !isPlayerLookingAtPosition(player, pos)) 
 	            return pos;
 	    }

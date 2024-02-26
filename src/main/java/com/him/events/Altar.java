@@ -30,7 +30,7 @@ import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class HimAltar 
+public class Altar 
 {   
     private static final String HIM_ALTAR_STATE = "data/HimAltar.properties";
     private static final String HIM_GREET_STATE = "data/HimGreet.properties";
@@ -47,10 +47,10 @@ public class HimAltar
 				"At last, another arrives.",
 				"You've come to a doomed world.",
 				"You will find no escape from this world.",
-				"Gone are you from my brother's watchful eye now.",
+				"Gone are you from my brother's watchful eye.",
 				"This world is a void that will consume you.",
 				"You're not the first here, nor will you be the last.",
-				"You will find no salvation here."
+				"Respite is a luxury you can no longer afford."
 			);
     	
 		String text0 = "§kHerobrine";
@@ -219,7 +219,7 @@ public class HimAltar
             				"You really believed you could end it like this?",
             				"You can't erase what's etched in the very fabric of this world.",
             				"I'm afraid the fate of this world was sealed long ago.",
-            				"I was here before you, I shall be here after you.",
+            				"I was here before you, I shall be here after.",
             				"You cannot silence me on this corrupted world.",
             				"This primitive shrine is a pathetic attempt to end me.",
             				"You cannot banish me from my own realm!"
@@ -256,26 +256,30 @@ public class HimAltar
         int y = pos.getY();
         int z = pos.getZ();
 
-        // Netherrack (Origin Point)
+        // netherrack (origin point)
         if (world.getBlockState(new BlockPos(x, y, z)).isOf(Blocks.NETHERRACK)
-        		// Mossy Cobblestone 
+        		// mossy cobblestone 
                 && world.getBlockState(new BlockPos(x, y - 1, z)).isOf(Blocks.MOSSY_COBBLESTONE)
-                // Gold Block Sides
+                
+                // gold block sides
                 && world.getBlockState(new BlockPos(x + 1, y - 1, z)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x - 1, y - 1, z)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x, y - 1, z + 1)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x, y - 1, z - 1)).isOf(Blocks.GOLD_BLOCK)
-                // Gold Block Corners
+                
+                // gold block corners
                 && world.getBlockState(new BlockPos(x + 1, y - 1, z - 1)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x + 1, y - 1, z + 1)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x - 1, y - 1, z + 1)).isOf(Blocks.GOLD_BLOCK)
                 && world.getBlockState(new BlockPos(x - 1, y - 1, z - 1)).isOf(Blocks.GOLD_BLOCK)
-                // Redstone Torches
+                
+                // redstone torches
                 && world.getBlockState(new BlockPos(x, y, z + 1)).isOf(Blocks.REDSTONE_TORCH)
                 && world.getBlockState(new BlockPos(x, y, z - 1)).isOf(Blocks.REDSTONE_TORCH)
                 && world.getBlockState(new BlockPos(x + 1, y, z)).isOf(Blocks.REDSTONE_TORCH)
                 && world.getBlockState(new BlockPos(x - 1, y, z)).isOf(Blocks.REDSTONE_TORCH)
-                // Air Corners
+                
+                // air corners
                 && world.getBlockState(new BlockPos(x + 1, y, z + 1)).isAir()
                 && world.getBlockState(new BlockPos(x - 1, y, z + 1)).isAir()
                 && world.getBlockState(new BlockPos(x + 1, y, z - 1)).isAir()

@@ -18,18 +18,21 @@ public class LookAtClosestPlayerGoal extends Goal
     }
 
     @Override
-    public boolean canStart() 
+    public boolean canStart()
     {
-        @SuppressWarnings("unchecked")
-		List<PlayerEntity> list = (List<PlayerEntity>) this.herobrine.getWorld().getPlayers();
+        List<? extends PlayerEntity> list = this.herobrine.getWorld().getPlayers();
         double closestDist = Double.MAX_VALUE;
-        for (PlayerEntity player : list) 
+        for (PlayerEntity player : list)
         {
-            double dist = this.herobrine.squaredDistanceTo(player);
-            if (dist < closestDist && herobrine.canSee(player)) 
+            if (player instanceof PlayerEntity)
             {
-                this.targetPlayer = player;
-                closestDist = dist;
+                PlayerEntity playerEntity = (PlayerEntity) player;
+                double dist = this.herobrine.squaredDistanceTo(playerEntity);
+                if (dist < closestDist && herobrine.canSee(playerEntity))
+                {
+                    this.targetPlayer = playerEntity;
+                    closestDist = dist;
+                }
             }
         }
         return this.targetPlayer != null;
