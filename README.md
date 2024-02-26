@@ -36,4 +36,6 @@ Make sure your **ambient** audio level is high!
 
 I think I've added everything I wanted to at the moment, if you have any suggestions or if you encounter any issues, please let me know as I haven't been able to do very extensive bug testing. I'll try to update the mod as my schedule permits.
 
+Download at [Modrinth](https://modrinth.com/mod/him) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/him)
+
 [![Fabric API Banner](https://i.imgur.com/70PIxOl.png)](https://modrinth.com/mod/fabric-api)
