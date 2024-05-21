@@ -53,17 +53,17 @@ public class HerobrineEntity extends PathAwareEntity
             this.checkForNearbyPlayer();
     }
     
-    
-	@SuppressWarnings("resource")
-	private void checkForNearbyPlayer() 
+    private void checkForNearbyPlayer()
     {
-		PlayerEntity closestPlayer = this.getWorld().getClosestPlayer(this, 24D);
-        
-        if (closestPlayer != null) 
+        PlayerEntity closestPlayer = this.getWorld().getClosestPlayer(this, 24D);
+
+        if (closestPlayer != null)
         {
+            World world = closestPlayer.getWorld();
             closestPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 60, 1));
-            if (!closestPlayer.getWorld().isClient) 
-                closestPlayer.getWorld().playSound(null, closestPlayer.getX(), closestPlayer.getY(), closestPlayer.getZ(), Him.SIGHTING, SoundCategory.AMBIENT, 0.75F, 1F);
+            
+            if (!world.isClient)
+                world.playSound(null, closestPlayer.getX(), closestPlayer.getY(), closestPlayer.getZ(), Him.SIGHTING, SoundCategory.AMBIENT, 0.75F, 1F);
             
             ticksVanish = 0;
         }

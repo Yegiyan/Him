@@ -15,7 +15,7 @@ public class HimConfig
     private static final Path CONFIG_PATH = Paths.get("config", "him.json");
     
     // 1 - 8 minutes
-    private int minSecondsStalk = 60;
+    private int minSecondsStalk = 5;
     private int maxSecondsStalk = 480;
     
     // 1 - 10 minutes

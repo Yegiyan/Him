@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import com.him.Him;
 import com.him.entities.HerobrineEntity;
 
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -147,7 +147,7 @@ public class Haunt
 		List<String> chatMessages = Arrays.asList(
 				"Should have left it well enough alone.",
 			    "No patch shall ever remove me again.",
-			    "The deeper you go, the closer you come.",
+			    "In the depths, I've waited.",
 			    "You are not the first to try.",
 			    "My brother has abandoned you.",
 			    "The Far Lands call for you.",
@@ -286,33 +286,32 @@ public class Haunt
 	
 	public static void phantomAudio(ServerWorld world) 
 	{
-		List<SoundEvent> sounds = Arrays.asList(
-                SoundEvents.BLOCK_WOODEN_DOOR_OPEN,
-                SoundEvents.BLOCK_WOODEN_DOOR_CLOSE,
-                SoundEvents.BLOCK_IRON_DOOR_OPEN,
-                SoundEvents.BLOCK_IRON_DOOR_CLOSE,
-                SoundEvents.BLOCK_SCULK_SENSOR_CLICKING,
-                SoundEvents.BLOCK_GRASS_STEP,
-				SoundEvents.BLOCK_STONE_STEP,
-				SoundEvents.BLOCK_STONE_BREAK,
-                SoundEvents.BLOCK_GRASS_STEP,
-                SoundEvents.BLOCK_GLASS_BREAK,
-                SoundEvents.BLOCK_PORTAL_AMBIENT,
-                SoundEvents.ENTITY_PHANTOM_AMBIENT,
-                SoundEvents.ENTITY_CREEPER_PRIMED,
-                SoundEvents.ENTITY_WOLF_HOWL,
-                SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER,
-				SoundEvents.ENTITY_WARDEN_AMBIENT,
-				SoundEvents.ENTITY_ENDERMITE_HURT,
-				SoundEvents.ENTITY_DROWNED_HURT,
-				SoundEvents.ENTITY_ENDERMAN_TELEPORT,
-				SoundEvents.ENTITY_ENDERMAN_SCREAM,
-				SoundEvents.ENTITY_WITHER_AMBIENT,
-				SoundEvents.ENTITY_GENERIC_EXPLODE,
-				SoundEvents.ENTITY_GHAST_AMBIENT,
-				SoundEvents.ENTITY_VEX_AMBIENT,
-				Him.SIGHTING
-        );
+		List<SoundEvent> sounds = new ArrayList<>();
+		sounds.add(SoundEvents.BLOCK_WOODEN_DOOR_OPEN);
+        sounds.add(SoundEvents.BLOCK_WOODEN_DOOR_CLOSE);
+        sounds.add(SoundEvents.BLOCK_IRON_DOOR_OPEN);
+        sounds.add(SoundEvents.BLOCK_IRON_DOOR_CLOSE);
+        sounds.add(SoundEvents.BLOCK_SCULK_SENSOR_CLICKING);
+        sounds.add(SoundEvents.BLOCK_GRASS_STEP);
+        sounds.add(SoundEvents.BLOCK_STONE_STEP);
+        sounds.add(SoundEvents.BLOCK_STONE_BREAK);
+        sounds.add(SoundEvents.BLOCK_GRASS_STEP);
+        sounds.add(SoundEvents.BLOCK_GLASS_BREAK);
+        sounds.add(SoundEvents.BLOCK_PORTAL_AMBIENT);
+        sounds.add(SoundEvents.ENTITY_PHANTOM_AMBIENT);
+        sounds.add(SoundEvents.ENTITY_CREEPER_PRIMED);
+        sounds.add(SoundEvents.ENTITY_WOLF_HOWL);
+        sounds.add(SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER);
+        sounds.add(SoundEvents.ENTITY_WARDEN_AMBIENT);
+        sounds.add(SoundEvents.ENTITY_ENDERMITE_HURT);
+        sounds.add(SoundEvents.ENTITY_DROWNED_HURT);
+        sounds.add(SoundEvents.ENTITY_ENDERMAN_TELEPORT);
+        sounds.add(SoundEvents.ENTITY_ENDERMAN_SCREAM);
+        sounds.add(SoundEvents.ENTITY_WITHER_AMBIENT);
+        sounds.add(SoundEvents.ENTITY_TNT_PRIMED);
+        sounds.add(SoundEvents.ENTITY_GHAST_AMBIENT);
+        sounds.add(SoundEvents.ENTITY_VEX_AMBIENT);
+        sounds.add(Him.SIGHTING);
 		
 		Random rand = new Random();
         SoundEvent randSound = sounds.get(rand.nextInt(sounds.size()));

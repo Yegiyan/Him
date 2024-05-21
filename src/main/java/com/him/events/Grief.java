@@ -470,18 +470,18 @@ public class Grief
 	    return null;
 	}
 
-	@SuppressWarnings("deprecation")
-	private static boolean isValidPyramidPos(World world, BlockPos pos) 
+	private static boolean isValidPyramidPos(World world, BlockPos pos)
 	{
-	    Block currentBlock = world.getBlockState(pos).getBlock();
-	    Block belowBlock = world.getBlockState(pos.down()).getBlock();
+	    BlockState currentBlockState = world.getBlockState(pos);
+	    BlockState belowBlockState = world.getBlockState(pos.down());
 
 	    // check if the base is water and block below base is solid
-	    if (currentBlock != Blocks.WATER || !belowBlock.getDefaultState().isSolid()) 
+	    if (currentBlockState.getBlock() != Blocks.WATER || !belowBlockState.isSideSolidFullSquare(world, pos.down(), Direction.UP))
 	        return false;
 
 	    // check the surrounding blocks at base level for water
-	    Block[] surroundingBlocksAtBase = new Block[]{
+	    Block[] surroundingBlocksAtBase = new Block[]
+	    {
 	            world.getBlockState(pos.north()).getBlock(),
 	            world.getBlockState(pos.south()).getBlock(),
 	            world.getBlockState(pos.east()).getBlock(),
@@ -505,8 +505,8 @@ public class Grief
 	    {
 	        for (int dz = -2; dz <= 2; dz++) 
 	        {
-	            Block underBlock = world.getBlockState(pos.add(dx, -1, dz)).getBlock();
-	            if (!underBlock.getDefaultState().isSolid())
+	            BlockState underBlockState = world.getBlockState(pos.add(dx, -1, dz));
+	            if (!underBlockState.isSideSolidFullSquare(world, pos.add(dx, -1, dz), Direction.UP))
 	                return false;
 	        }
 	    }

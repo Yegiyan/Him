@@ -11,6 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
@@ -40,15 +41,14 @@ public class Stalk
         }
 	}
 	
-	@SuppressWarnings("deprecation")
 	private static boolean isValidSpawnPosition(World world, BlockPos pos) 
-    {
-        if (!world.getBlockState(pos.up()).isAir() || !world.getBlockState(pos.up(2)).isAir()) 
-            return false;
+	{
+	    if (!world.getBlockState(pos.up()).isAir() || !world.getBlockState(pos.up(2)).isAir()) 
+	        return false;
 
-        BlockState downState = world.getBlockState(pos.down());
-        return downState.isSolid() && !downState.isOf(Blocks.WATER) && !downState.isOf(Blocks.LAVA);
-    }
+	    BlockState downState = world.getBlockState(pos.down());
+	    return downState.isSideSolidFullSquare(world, pos.down(), Direction.UP) && !downState.isOf(Blocks.WATER) && !downState.isOf(Blocks.LAVA);
+	}
     
 	private static BlockPos getSpawnPosition(PlayerEntity player, double distance) 
 	{

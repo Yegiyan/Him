@@ -1,20 +1,5 @@
 package com.him;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.Heightmap;
-
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,6 +12,19 @@ import com.him.events.Grief;
 import com.him.events.Haunt;
 import com.him.events.Stalk;
 
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.Heightmap;
+
 public class Him implements ModInitializer
 {
 	public static String MOD_ID = "him";
@@ -34,11 +32,12 @@ public class Him implements ModInitializer
 	public static HimConfig CONFIG = HimConfig.loadConfig();
 	
 	public static final EntityType<HerobrineEntity> HEROBRINE = Registry.register(Registries.ENTITY_TYPE, new Identifier("him", "herobrine"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HerobrineEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build());
+            EntityType.Builder.create(HerobrineEntity::new, SpawnGroup.CREATURE).dimensions(0.6F, 1.95F).build());
 	
 	public static final SoundEvent ALTAR_SUMMONED = registerSoundEvent("altar_summoned");
     public static final SoundEvent ALTAR_BANISHED = registerSoundEvent("altar_banished");
 
+    // music discs not implemented yet
     public static final SoundEvent THE_INSTAR_EMERGENCE_SOUND = registerSoundEvent("the_instar_emergence_disc");
     public static final SoundEvent INTERCONNECTEDNESS_SOUND = registerSoundEvent("interconnectedness_disc");
     
@@ -52,7 +51,7 @@ public class Him implements ModInitializer
 		Altar.registerEventHandlers();
 		
 		FabricDefaultAttributeRegistry.register(HEROBRINE, HerobrineEntity.createMobAttributes());
-		SpawnRestriction.register(Him.HEROBRINE, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HerobrineEntity::canMobSpawn);
+		SpawnRestriction.register(Him.HEROBRINE, SpawnRestriction.getLocation(Him.HEROBRINE), Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HerobrineEntity::canMobSpawn);
 		
 		// check if the world seed is cursed
         ServerLifecycleEvents.SERVER_STARTED.register(server -> 
@@ -86,7 +85,7 @@ public class Him implements ModInitializer
 	    AtomicInteger tickCounterGrief = new AtomicInteger();
 	    
 	    AtomicInteger printCounter = new AtomicInteger();
-	    int debugPrintInterval = 60;
+	    int debugPrintInterval = 60; // print next herobrine event every minute
 
 	    ServerTickEvents.END_WORLD_TICK.register(world -> 
 	    {
