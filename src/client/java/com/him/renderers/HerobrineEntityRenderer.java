@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class HerobrineEntityRenderer extends MobEntityRenderer<HerobrineEntity, BipedEntityModel<HerobrineEntity>> 
 {
-    private static final Identifier TEXTURE = new Identifier("him", "textures/entity/herobrine.png");
+    private static final Identifier TEXTURE = Identifier.of("him", "textures/entity/herobrine.png");
 
     public HerobrineEntityRenderer(EntityRendererFactory.Context context) 
     {

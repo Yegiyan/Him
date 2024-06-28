@@ -55,7 +55,7 @@
         ]
     },
     "the_instar_emergence_disc": {
-        "category": "item",
+        "category": "record",
         "sounds": [
             {
                 "name": "him:discs/the_instar_emergence_disc",

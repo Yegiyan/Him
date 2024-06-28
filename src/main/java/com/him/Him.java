@@ -31,8 +31,7 @@ public class Him implements ModInitializer
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static HimConfig CONFIG = HimConfig.loadConfig();
 	
-	public static final EntityType<HerobrineEntity> HEROBRINE = Registry.register(Registries.ENTITY_TYPE, new Identifier("him", "herobrine"),
-            EntityType.Builder.create(HerobrineEntity::new, SpawnGroup.CREATURE).dimensions(0.6F, 1.95F).build());
+	public static final EntityType<HerobrineEntity> HEROBRINE = Registry.register(Registries.ENTITY_TYPE, Identifier.of("him", "herobrine"), EntityType.Builder.create(HerobrineEntity::new, SpawnGroup.CREATURE).dimensions(0.6F, 1.95F).build());
 	
 	public static final SoundEvent ALTAR_SUMMONED = registerSoundEvent("altar_summoned");
     public static final SoundEvent ALTAR_BANISHED = registerSoundEvent("altar_banished");
@@ -86,6 +85,7 @@ public class Him implements ModInitializer
 	    
 	    AtomicInteger printCounter = new AtomicInteger();
 	    int debugPrintInterval = 60; // print next herobrine event every minute
+	    boolean shouldPrintDebugInfo = false;
 
 	    ServerTickEvents.END_WORLD_TICK.register(world -> 
 	    {
@@ -103,7 +103,7 @@ public class Him implements ModInitializer
 	        
 	        if (!world.getPlayers().isEmpty() && Altar.isAltarActive(world)) 
             {
-	        	if (printCounter.incrementAndGet() >= 20 * debugPrintInterval) 
+	        	if ((printCounter.incrementAndGet() >= 20 * debugPrintInterval) && shouldPrintDebugInfo)
 		        {
 	        		LOGGER.info("--------------");
 		        	LOGGER.info("Time until next stalking: " + ((int)((secondsStalk.getValue() * 20 - tickCounterStalk.get()) / 20.0 + 0.5)) + " seconds");
@@ -138,7 +138,7 @@ public class Him implements ModInitializer
     
     private static SoundEvent registerSoundEvent(String name)
 	{
-		Identifier id = new Identifier(MOD_ID, name);
+		Identifier id = Identifier.of(MOD_ID, name);
 		return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
 	}
 }
