@@ -56,7 +56,7 @@ public class StalkPlayerGoal extends Goal
      
         if (this.herobrine.getWorld() instanceof ServerWorld) 
         {
-            ((ServerWorld)this.herobrine.getWorld()).spawnParticles(ParticleTypes.END_ROD, 
+            ((ServerWorld)this.herobrine.getWorld()).spawnParticles(ParticleTypes.POOF,
                 this.herobrine.getX(), 
                 this.herobrine.getY(), 
                 this.herobrine.getZ(), 

@@ -11,6 +11,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 
@@ -37,7 +39,7 @@ public class HerobrineEntity extends PathAwareEntity
         return false;
     }
     
-    @Override
+	@Override @SuppressWarnings("resource")
     public void tick() 
     {
     	super.tick();
@@ -46,7 +48,21 @@ public class HerobrineEntity extends PathAwareEntity
         {
         	ticksVanish++;
             if (ticksVanish >= 30)
-                this.remove(RemovalReason.DISCARDED);
+            {
+            	if (!this.getWorld().isClient)
+            	{
+            		((ServerWorld)this.getWorld()).spawnParticles(ParticleTypes.POOF,
+                            this.getX(),
+                            this.getY(),
+                            this.getZ(),
+                            20,     // number of particles
+                            0.25D,  // spawn width
+                            0.25D,  // spawn height
+                            0.25D,  // spawn depth
+                            0.02D); // speed of particles
+            	}
+            	this.remove(RemovalReason.DISCARDED);
+            }
         }
         
         else
