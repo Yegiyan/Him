@@ -60,7 +60,9 @@ public class HerobrineEntity extends PathAwareEntity
         if (closestPlayer != null)
         {
             World world = closestPlayer.getWorld();
-            closestPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 60, 1));
+            
+            if (Him.CONFIG.enableBlindingPlayer)
+            	closestPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 60, 1));
             
             if (!world.isClient)
                 world.playSound(null, closestPlayer.getX(), closestPlayer.getY(), closestPlayer.getZ(), Him.SIGHTING, SoundCategory.AMBIENT, 0.75F, 1F);

@@ -26,8 +26,8 @@ public class Stalk
             PlayerEntity player = world.getPlayers().get(playerIndex);
             
             // distance in blocks
-            double minDistance = 42D;
-            double maxDistance = 64D;
+            double minDistance = Him.CONFIG.getMinStalkDistance();
+            double maxDistance = Him.CONFIG.getMaxStalkDistance();
             double spawnDistance = ThreadLocalRandom.current().nextDouble(minDistance, maxDistance);
             BlockPos spawnPos = getSpawnPosition(player, spawnDistance);
             

@@ -84,8 +84,8 @@ public class Him implements ModInitializer
 	    AtomicInteger tickCounterGrief = new AtomicInteger();
 	    
 	    AtomicInteger printCounter = new AtomicInteger();
-	    int debugPrintInterval = 60; // print next herobrine event every minute
-	    boolean shouldPrintDebugInfo = false;
+	    boolean printDebugInfo = false;
+	    int debugPrintInterval = 60;
 
 	    ServerTickEvents.END_WORLD_TICK.register(world -> 
 	    {
@@ -103,7 +103,7 @@ public class Him implements ModInitializer
 	        
 	        if (!world.getPlayers().isEmpty() && Altar.isAltarActive(world)) 
             {
-	        	if ((printCounter.incrementAndGet() >= 20 * debugPrintInterval) && shouldPrintDebugInfo)
+	        	if ((printCounter.incrementAndGet() >= 20 * debugPrintInterval) && printDebugInfo)
 		        {
 	        		LOGGER.info("--------------");
 		        	LOGGER.info("Time until next stalking: " + ((int)((secondsStalk.getValue() * 20 - tickCounterStalk.get()) / 20.0 + 0.5)) + " seconds");
