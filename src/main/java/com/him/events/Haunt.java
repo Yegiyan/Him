@@ -2,13 +2,14 @@ package com.him.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.him.Him;
 import com.him.entities.HerobrineEntity;
@@ -40,7 +41,7 @@ import net.minecraft.util.math.Direction;
 
 public class Haunt
 {	
-	private static final Map<PlayerEntity, Boolean> shouldSleepScare = new HashMap<>();
+	private static final Map<PlayerEntity, Boolean> shouldSleepScare = new ConcurrentHashMap<>();
 	
 	public static void haunt(ServerWorld world)
 	{		
@@ -58,60 +59,73 @@ public class Haunt
 
 	public static void sleepScare(ServerWorld world)
 	{
-	    world.getServer().getPlayerManager().getPlayerList().stream().forEach(player -> { shouldSleepScare.put(player, true); });
-	    Him.LOGGER.info("Herobrine will haunt a sleeping player tonight!");
+		List<PlayerEntity> players = world.getServer().getPlayerManager().getPlayerList().stream().filter(player -> player instanceof PlayerEntity).map(player -> player).collect(Collectors.toList());
+
+		if (!players.isEmpty())
+		{
+			Random rand = new Random();
+			PlayerEntity selectedPlayer = players.get(rand.nextInt(players.size()));
+			shouldSleepScare.put(selectedPlayer, true);
+			Him.LOGGER.info("Herobrine will haunt " + selectedPlayer.getName().getString() + " tonight!");
+		}
+		else
+			Him.LOGGER.error("No players available to haunt tonight!");
 	}
-	
+
 	public static void isPlayerSleeping(ServerWorld world)
 	{
-	    world.getServer().getPlayerManager().getPlayerList().stream().forEach(player ->
-	    {
-	        if (player.isSleeping() && shouldSleepScare.getOrDefault(player, false))
-	        {
-	            BlockPos bedPos = player.getSleepingPosition().orElse(player.getBlockPos());
-	            
-	            // calculate a position at the edge of the bed
-	            BlockState bedState = world.getBlockState(bedPos);
-	            BlockPos spawnPos = bedPos;
-	            
-	            if (bedState.getBlock() instanceof BedBlock) 
-	            {
-	                Direction facing = bedState.get(BedBlock.FACING);
-	                spawnPos = bedPos.offset(facing.getOpposite(), 2);
-	            } 
-	            
-	            // spawn herobrine with 0-3 second delay
-	            HerobrineEntity herobrine = Him.HEROBRINE.create(world);
-	            herobrine.refreshPositionAndAngles(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), 0, 0);
-	            
-	            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-	            int delay = new Random().nextInt(4); // 0 - 3 seconds
-	            
-	            executorService.schedule(() ->  
-	            { 
-	            	world.spawnEntity(herobrine);
-	            	
-	            	((ServerWorld) herobrine.getWorld()).spawnParticles(ParticleTypes.SMOKE, herobrine.getX(), herobrine.getY(), herobrine.getZ(), 
-	                        350,   // number of particles
-	                        0.25D, // spawn width
-	                        0.25D, // spawn height
-	                        0.25D, // spawn depth
-	                        0.1D); // speed of particles
-	            	
-	            }, delay, TimeUnit.SECONDS); 
-	            executorService.shutdown();
-	            
-	            // remove scare flag for this player
-	            shouldSleepScare.remove(player);
-	        }
-	    });
+		world.getServer().getPlayerManager().getPlayerList().stream()
+				.filter(player -> player instanceof PlayerEntity).forEach(player ->
+				{
+					PlayerEntity serverPlayer = (PlayerEntity) player;
+					if (serverPlayer.isSleeping() && shouldSleepScare.getOrDefault(serverPlayer, false))
+					{
+						BlockPos bedPos = serverPlayer.getSleepingPosition().orElse(serverPlayer.getBlockPos());
+
+						// calculate a position at the edge of the bed
+						BlockState bedState = world.getBlockState(bedPos);
+						BlockPos spawnPos = bedPos;
+
+						if (bedState.getBlock() instanceof BedBlock)
+						{
+							Direction facing = bedState.get(BedBlock.FACING);
+							spawnPos = bedPos.offset(facing.getOpposite(), 2);
+						}
+
+						// spawn Herobrine with 0-3 second delay
+						HerobrineEntity herobrine = Him.HEROBRINE.create(world);
+						herobrine.refreshPositionAndAngles(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), 0, 0);
+
+						ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+						int delay = new Random().nextInt(4); // 0 - 3 seconds
+
+						executorService.schedule(() ->
+						{
+							world.getServer().execute(() ->
+							{
+								world.spawnEntity(herobrine);
+								((ServerWorld) herobrine.getWorld()).spawnParticles(ParticleTypes.SMOKE,
+										herobrine.getX(), herobrine.getY(), herobrine.getZ(), 350, // number of
+																									// particles
+										0.25D, // spawn width
+										0.25D, // spawn height
+										0.25D, // spawn depth
+										0.1D); // speed of particles
+							});
+						}, delay, TimeUnit.SECONDS);
+						executorService.shutdown();
+
+						// remove scare flag for this player
+						shouldSleepScare.remove(serverPlayer);
+					}
+				});
 	}
 	
-	public static void createParticle(ServerWorld world) 
+	public static void createParticle(ServerWorld world)
 	{
 	    List<PlayerEntity> players = new ArrayList<>(world.getPlayers());
 
-	    if (!players.isEmpty()) 
+	    if (!players.isEmpty())
 	    {
 	        Random random = new Random();
 	        PlayerEntity player = players.get(random.nextInt(players.size()));
@@ -125,7 +139,7 @@ public class Haunt
 	        double offset_y = -offsetDistance * Math.sin(Math.toRadians(player.getPitch(1.0F)));
 	        double offset_z = offsetDistance * Math.cos(Math.toRadians(player.getYaw(1.0F))) * Math.cos(Math.toRadians(player.getPitch(1.0F)));
 
-	        world.spawnParticles(ParticleTypes.END_ROD, 
+	        world.spawnParticles(ParticleTypes.END_ROD,
 	            x + offset_x, 
 	            y + offset_y, 
 	            z + offset_z, 
@@ -183,7 +197,7 @@ public class Haunt
             server.getPlayerManager().broadcast(Text.literal(text0 + text1 + text2).styled(style -> style.withColor(Formatting.WHITE)), false);
 	}
 	
-	public static void manipulateBlocks(ServerWorld world) 
+	public static void manipulateBlocks(ServerWorld world)
 	{
 		Random rand = new Random();
 	    int changeDistance = 128;
@@ -229,8 +243,8 @@ public class Haunt
 	            }
 	        }
 	        
-		    int decision = rand.nextInt(7); 
-		    switch (decision) 
+		    int decision = rand.nextInt(7);
+		    switch (decision)
 		    {
 		        case 0:
 		        	if (!torchPositions.isEmpty())
@@ -284,7 +298,7 @@ public class Haunt
 	    }
 	}
 	
-	public static void phantomAudio(ServerWorld world) 
+	public static void phantomAudio(ServerWorld world)
 	{
 		List<SoundEvent> sounds = new ArrayList<>();
 		sounds.add(SoundEvents.BLOCK_WOODEN_DOOR_OPEN);
@@ -316,7 +330,7 @@ public class Haunt
 		Random rand = new Random();
         SoundEvent randSound = sounds.get(rand.nextInt(sounds.size()));
 
-        for (PlayerEntity player : world.getPlayers()) 
+        for (PlayerEntity player : world.getPlayers())
         {
         	BlockPos playerPos = player.getBlockPos();
 

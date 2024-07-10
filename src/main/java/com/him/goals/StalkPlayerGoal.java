@@ -20,7 +20,7 @@ public class StalkPlayerGoal extends Goal
     private int runTime;
     private PlayerEntity targetPlayer;
 
-    public StalkPlayerGoal(HerobrineEntity herobrine, float stalkedPlayerDistance, float runDistance) 
+    public StalkPlayerGoal(HerobrineEntity herobrine, float stalkedPlayerDistance, float runDistance)
     {
         this.herobrine = herobrine;
         this.stalkedPlayerDistance = stalkedPlayerDistance;
@@ -28,13 +28,13 @@ public class StalkPlayerGoal extends Goal
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }
 
-    public void updateStalkDistance(float newDistance) 
+    public void updateStalkDistance(float newDistance)
     {
         this.stalkedPlayerDistance = newDistance;
     }
     
     @Override
-    public boolean canStart() 
+    public boolean canStart()
     {
     	this.targetPlayer = null;
         this.targetPlayer = this.herobrine.getWorld().getClosestPlayer(this.herobrine, stalkedPlayerDistance);
@@ -42,14 +42,14 @@ public class StalkPlayerGoal extends Goal
     }
 
     @Override
-    public void start() 
+    public void start()
     {
         this.stareTime = 0;
         this.runTime = 0;
     }
 
 	@Override
-    public void stop() 
+    public void stop()
     {
         this.targetPlayer = null;
         this.herobrine.getNavigation().stop();
@@ -72,7 +72,7 @@ public class StalkPlayerGoal extends Goal
     }
     
     @Override
-    public boolean shouldContinue() 
+    public boolean shouldContinue()
     {
         if (this.runTime > 100) 
             return false;
@@ -81,7 +81,7 @@ public class StalkPlayerGoal extends Goal
     }
 
     @Override
-    public void tick() 
+    public void tick()
     {
         if (this.stareTime <= 240) // 240 ticks = 12 seconds
         {
@@ -101,7 +101,7 @@ public class StalkPlayerGoal extends Goal
         }
     }
 
-    private void runAway() 
+    private void runAway()
     {
         Vec3d runPosition = this.getRunAwayPosition(this.targetPlayer, this.herobrine, this.runDistance);
         this.herobrine.getNavigation().startMovingTo(runPosition.x, runPosition.y, runPosition.z, 0.70D);
@@ -110,7 +110,7 @@ public class StalkPlayerGoal extends Goal
             this.stop();	
     }
 
-    private Vec3d getRunAwayPosition(PlayerEntity player, HerobrineEntity herobrine, double distance) 
+    private Vec3d getRunAwayPosition(PlayerEntity player, HerobrineEntity herobrine, double distance)
     {
         double dx = herobrine.getX() - player.getX();
         double dz = herobrine.getZ() - player.getZ();
@@ -120,7 +120,7 @@ public class StalkPlayerGoal extends Goal
         return new Vec3d(desiredX, herobrine.getY(), desiredZ);
     }
     
-    private boolean isPlayerLookingAtHerobrine(PlayerEntity player, HerobrineEntity herobrine) 
+    private boolean isPlayerLookingAtHerobrine(PlayerEntity player, HerobrineEntity herobrine)
     {
         Vec3d toHerobrine = herobrine.getEyePos().subtract(player.getEyePos()).normalize();
         Vec3d playerLookVec = player.getRotationVec(1.0F);
