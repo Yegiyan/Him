@@ -1,0 +1,75 @@
+{
+    "altar_summoned": {
+        "category": "ambient",
+        "sounds": [
+            {
+                "name": "him:altar/altar_summoned",
+                "stream": true
+            }
+        ]
+    },
+    "altar_banished": {
+        "category": "ambient",
+        "sounds": [
+            {
+                "name": "him:altar/altar_banished",
+                "stream": true
+            }
+        ]
+    },
+    "sighting": {
+        "category": "ambient",
+        "sounds": [
+            {
+                "name": "him:sighting/sighting1",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting2",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting3",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting4",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting5",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting6",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting7",
+                "stream": true
+            },
+            {
+                "name": "him:sighting/sighting8",
+                "stream": true
+            }
+        ]
+    },
+    "the_instar_emergence_disc": {
+        "category": "record",
+        "sounds": [
+            {
+                "name": "him:discs/the_instar_emergence_disc",
+                "stream": true
+            }
+        ]
+    },
+    "interconnectedness_disc": {
+        "category": "item",
+        "sounds": [
+            {
+                "name": "him:discs/interconnectedness_disc",
+                "stream": true
+            }
+        ]
+    }
+}
