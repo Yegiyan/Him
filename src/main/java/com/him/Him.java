@@ -21,6 +21,8 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -31,7 +33,8 @@ public class Him implements ModInitializer
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static HimConfig CONFIG = HimConfig.loadConfig();
 	
-	public static final EntityType<HerobrineEntity> HEROBRINE = Registry.register(Registries.ENTITY_TYPE, Identifier.of("him", "herobrine"), EntityType.Builder.create(HerobrineEntity::new, SpawnGroup.CREATURE).dimensions(0.6F, 1.95F).build());
+	public static final EntityType<HerobrineEntity> HEROBRINE = Registry.register(Registries.ENTITY_TYPE, Identifier.of("him", "herobrine"),
+			EntityType.Builder.create(HerobrineEntity::new, SpawnGroup.CREATURE).dimensions(0.6F, 1.95F).build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("him", "herobrine"))));
 	
 	public static final SoundEvent ALTAR_SUMMONED = registerSoundEvent("altar_summoned");
     public static final SoundEvent ALTAR_BANISHED = registerSoundEvent("altar_banished");
@@ -84,8 +87,8 @@ public class Him implements ModInitializer
 	    AtomicInteger tickCounterGrief = new AtomicInteger();
 	    
 	    AtomicInteger printCounter = new AtomicInteger();
-	    boolean printDebugInfo = false;
-	    int debugPrintInterval = 60;
+	    boolean printDebugInfo = true;
+	    int debugPrintInterval = 5;
 
 	    ServerTickEvents.END_WORLD_TICK.register(world -> 
 	    {

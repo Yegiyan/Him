@@ -6,7 +6,6 @@ import com.him.goals.StalkPlayerGoal;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -14,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
 public class HerobrineEntity extends PathAwareEntity 
@@ -23,6 +23,7 @@ public class HerobrineEntity extends PathAwareEntity
     public HerobrineEntity(EntityType<? extends PathAwareEntity> entityType, World world) 
     {
         super(entityType, world);
+        this.setCustomName(Text.literal("Herobrine"));
     }
 
     @Override
@@ -33,13 +34,13 @@ public class HerobrineEntity extends PathAwareEntity
         this.goalSelector.add(2, new SwimGoal(this));
     }
     
-    @Override
-    public boolean damage(DamageSource source, float amount)
-    {
-        return false;
-    }
+    //@Override
+    //public boolean damage(DamageSource source, float amount)
+    //{
+    //    return false;
+    //}
     
-	@Override @SuppressWarnings("resource")
+	@Override
     public void tick() 
     {
     	super.tick();

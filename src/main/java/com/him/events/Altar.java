@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -236,7 +237,7 @@ public class Altar
                     
                     if (!world.isClient()) 
                     {
-                        LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world);
+                        LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
                         lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(pos));
                         world.spawnEntity(lightningEntity);
                         
@@ -302,7 +303,7 @@ public class Altar
         
         if (!world.isClient()) 
         {
-            LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world);
+            LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
             lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(pos));
             world.spawnEntity(lightningEntity);
             
@@ -327,7 +328,7 @@ public class Altar
         
         if (!world.isClient()) 
         {
-            LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world);
+            LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
             lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(pos));
             world.spawnEntity(lightningEntity);
             

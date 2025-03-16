@@ -8,6 +8,7 @@ import com.him.entities.HerobrineEntity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +34,7 @@ public class Stalk
             
             if (spawnPos != null)
             {
-                HerobrineEntity herobrine = Him.HEROBRINE.create(world);
+                HerobrineEntity herobrine = Him.HEROBRINE.create(world, SpawnReason.EVENT);
                 herobrine.refreshPositionAndAngles(spawnPos, 0, 0);
                 world.spawnEntity(herobrine);
                 Him.LOGGER.info("Herobrine stalking from " + spawnPos);

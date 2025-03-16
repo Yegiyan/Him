@@ -1,5 +1,6 @@
 package com.him;
 
+import com.him.models.HerobrineModel;
 import com.him.renderers.HerobrineEntityRenderer;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -10,7 +11,6 @@ public class HimClient implements ClientModInitializer
 	@Override
 	public void onInitializeClient() 
 	{
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
-		EntityRendererRegistry.register(Him.HEROBRINE, (context) -> { return new HerobrineEntityRenderer(context); });
+		EntityRendererRegistry.register(Him.HEROBRINE, (context) -> { HerobrineModel model = new HerobrineModel(context); return new HerobrineEntityRenderer(context, model, 0.5F); });
 	}
 }

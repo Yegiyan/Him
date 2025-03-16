@@ -26,6 +26,7 @@ import net.minecraft.block.TorchBlock;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
@@ -93,7 +94,7 @@ public class Haunt
 						}
 
 						// spawn Herobrine with 0-3 second delay
-						HerobrineEntity herobrine = Him.HEROBRINE.create(world);
+						HerobrineEntity herobrine = Him.HEROBRINE.create(world, SpawnReason.EVENT);
 						herobrine.refreshPositionAndAngles(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), 0, 0);
 
 						ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
